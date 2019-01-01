@@ -1,0 +1,25 @@
+WHITESPACE    = _{ " " }
+
+unit_group    =  {
+  size ~ "units each with" ~
+  hit_points ~ "hit points" ~
+  traits? ~
+  "with an attack that does" ~ attack_damage ~ attack_type ~
+  "damage at initiative" ~ initiative
+}
+
+size          = @{ ASCII_DIGIT+ }
+hit_points    = @{ ASCII_DIGIT+ }
+attack_damage = @{ ASCII_DIGIT+ }
+initiative    = @{ ASCII_DIGIT+ }
+weaknesses    =  { "weak to" ~ attack_types }
+immunities    =  { "immune to" ~ attack_types }
+attack_type   =  { cold | fire | radiation | slashing | bludgeoning }
+
+traits        = _{ "(" ~ (weaknesses | immunities) ~ (";" ~ (weaknesses | immunities))? ~ ")" }
+attack_types  = _{ attack_type ~ ("," ~ attack_type)* }
+cold          = @{ "cold" }
+fire          = @{ "fire" }
+radiation     = @{ "radiation" }
+slashing      = @{ "slashing" }
+bludgeoning   = @{ "bludgeoning" }

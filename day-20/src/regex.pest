@@ -1,0 +1,9 @@
+regex       =  { SOI ~ "^" ~ seq ~ "$" ~ EOI }
+  seq       =  { (side | group)+ }
+    side    = _{ east | west | north | south }
+      east  =  { "E" }
+      west  =  { "W" }
+      north =  { "N" }
+      south =  { "S" }
+    group   =  { "(" ~ seq ~ ("|" ~ seq)* ~ bar? ~ ")" }
+      bar   =  { "|" }
